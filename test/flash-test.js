@@ -14,20 +14,19 @@ function MockRequestWithoutSession() {
 function MockResponse() {
 }
 
-
 vows.describe('flash').addBatch({
 
   'middleware': {
     topic: function() {
       return flash();
     },
-    
+
     'when handling a request': {
       topic: function(flash) {
         var self = this;
         var req = new MockRequest();
         var res = new MockResponse();
-        
+
         function next(err) {
           self.callback(err, req, res);
         }
@@ -35,7 +34,7 @@ vows.describe('flash').addBatch({
           flash(req, res, next)
         });
       },
-      
+
       'should not error' : function(err, req, res) {
         assert.isNull(err);
       },
@@ -92,7 +91,7 @@ vows.describe('flash').addBatch({
         assert.lengthOf(msgs, 1);
         assert.equal(msgs[0], 'Last login was yesterday');
       },
-      'should return all messages' : function(err, req, res) {
+      'should return all messages and clear session object' : function(err, req, res) {
         req.flash('error', 'Database is down');
         req.flash('error', 'Message queue is down');
         req.flash('notice', 'Things are looking bleak');
@@ -100,14 +99,14 @@ vows.describe('flash').addBatch({
         assert.lengthOf(Object.keys(msgs), 2);
         assert.lengthOf(msgs['error'], 2);
         assert.lengthOf(msgs['notice'], 1);
-        assert.lengthOf(Object.keys(req.session.flash), 0);
+        assert.isUndefined(req.session.flash);
       },
       'should format messages' : function(err, req, res) {
         if (util.format) {
           req.flash('info', 'Hello %s', 'Jared');
           var msg = req.flash('info')[0];
           assert.equal(msg, 'Hello Jared')
-        
+
           req.flash('info', 'Hello %s %s', 'Jared', 'Hanson');
           var msg = req.flash('info')[0];
           assert.equal(msg, 'Hello Jared Hanson')
@@ -118,7 +117,7 @@ vows.describe('flash').addBatch({
         assert.lengthOf(msgs, 0);
       },
     },
-    
+
     'when handling a request with an existing flash function': {
       topic: function(flash) {
         var self = this;
@@ -127,7 +126,7 @@ vows.describe('flash').addBatch({
           this.session.flash = 'I Exist'
         }
         var res = new MockResponse();
-        
+
         function next(err) {
           self.callback(err, req, res);
         }
@@ -135,7 +134,7 @@ vows.describe('flash').addBatch({
           flash(req, res, next)
         });
       },
-      
+
       'should not error' : function(err, req, res) {
         assert.isNull(err);
       },
@@ -144,13 +143,13 @@ vows.describe('flash').addBatch({
         assert.equal(req.session.flash, 'I Exist');
       },
     },
-    
+
     'when handling a request without a session': {
       topic: function(flash) {
         var self = this;
         var req = new MockRequestWithoutSession();
         var res = new MockResponse();
-        
+
         function next(err) {
           self.callback(err, req, res);
         }
@@ -158,7 +157,7 @@ vows.describe('flash').addBatch({
           flash(req, res, next)
         });
       },
-      
+
       'should not error' : function(err, req, res) {
         assert.isNull(err);
       },
@@ -172,12 +171,12 @@ vows.describe('flash').addBatch({
       },
     },
   },
-  
+
   'middleware with an unsafe option': {
     topic: function() {
       return flash({ unsafe: true });
     },
-    
+
     'when handling a request with an existing flash function': {
       topic: function(flash) {
         var self = this;
@@ -186,7 +185,7 @@ vows.describe('flash').addBatch({
           this.session.flash = 'I Exist'
         }
         var res = new MockResponse();
-        
+
         function next(err) {
           self.callback(err, req, res);
         }
@@ -194,7 +193,7 @@ vows.describe('flash').addBatch({
           flash(req, res, next)
         });
       },
-      
+
       'should not error' : function(err, req, res) {
         assert.isNull(err);
       },

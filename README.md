@@ -1,3 +1,7 @@
+# Fork/Branch changes
+
+- The `flash` object is removed from the `session` if it is empty. This allows to use this module with the `express-session` module with the `saveUninitialized` setting set to `false`.
+
 # connect-flash
 
 The flash is a special area of the session used for storing messages.  Messages
