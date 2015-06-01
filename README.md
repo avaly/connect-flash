@@ -1,6 +1,7 @@
 # Fork/Branch changes
 
 - The `flash` object is removed from the `session` if it is empty. This allows to use this module with the `express-session` module with the `saveUninitialized` setting set to `false`.
+- Published as npm package `@avaly/connect-flash`
 
 # connect-flash
 
@@ -16,7 +17,7 @@ framework or application. +1 for [radical reusability](http://substack.net/posts
 
 ## Install
 
-    $ npm install connect-flash
+    $ npm install --save @avaly/connect-flash
 
 ## Usage
 
@@ -62,8 +63,6 @@ example.
 
     $ npm install --dev
     $ make test
-
-[![Build Status](https://secure.travis-ci.org/jaredhanson/connect-flash.png)](http://travis-ci.org/jaredhanson/connect-flash)
 
 ## Credits
 

@@ -1,14 +1,14 @@
 {
-  "name": "connect-flash",
-  "version": "0.1.1",
+  "name": "@avaly/connect-flash",
+  "version": "1.0.0",
   "description": "Flash message middleware for Connect.",
   "keywords": ["connect", "express", "flash", "messages"],
   "repository": {
     "type": "git",
-    "url": "git://github.com/jaredhanson/connect-flash.git"
+    "url": "git://github.com/avaly/connect-flash.git"
   },
   "bugs": {
-    "url": "http://github.com/jaredhanson/connect-flash/issues"
+    "url": "http://github.com/avaly/connect-flash/issues"
   },
   "author": {
     "name": "Jared Hanson",
